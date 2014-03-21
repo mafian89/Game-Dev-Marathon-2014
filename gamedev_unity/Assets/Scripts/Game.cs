@@ -8,26 +8,25 @@ public class Game : MonoBehaviour {
 
 	private GameObject[,] m_tiles;
 
-	private const int ROWS = 4;
+	private const int ROWS = 7;
 	private const int COLS = 5;
 
 	void generateTiles() {
-		m_tiles = new GameObject[ROWS, COLS];
-		for (int row = 0; row < ROWS; row++) {
-			for (int col = 0; col < COLS; col++) {
-				m_tiles[row, col] = Instantiate(tileTemplate, new Vector3(row * 96, -col * 96, 0), Quaternion.identity) as GameObject;
-				m_tiles[row, col].SetActive(true);
-				print ("Position.x=" + m_tiles[row, col].gameObject.transform.position.x
-				       + ", Position.y=" + m_tiles[row, col].gameObject.transform.position.y);
+		m_tiles = new GameObject[COLS, ROWS];
+		for (int col = 0; col < COLS; col++) {
+			for (int row = 0; row < ROWS; row++) {
+				m_tiles[col, row] = Instantiate(tileTemplate, new Vector3(col * 96f / Screen.width, -row * 96f / Screen.width, 0.05f), Quaternion.identity) as GameObject;
+				m_tiles[col, row].transform.localScale = new Vector3(96f / Screen.width, 96f / Screen.width);
+				m_tiles[col, row].SetActive(true);
 			}
 		}
 	}
 
 	// Use this for initialization
 	void Start () {
-		// DEBUG
 		Screen.SetResolution(480, 800, false);
-		Camera.main.orthographicSize = Screen.height / 2.0f;
+		mainCamera.rect = new Rect(0, 0, 1, 1);
+		//Camera.main.rect = 
 		generateTiles();
 	}
 	
