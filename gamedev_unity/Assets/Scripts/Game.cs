@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Game : MonoBehaviour {
 	public static Game Instance = null;
@@ -16,7 +17,7 @@ public class Game : MonoBehaviour {
 		Instance = this;
 	}	
 
-	GameObject createTile(int row, int col) {
+	void createTile(int row, int col) {
 		GameObject tile = Instantiate(tileTemplate,
 		                              new Vector3(col * 96f / Screen.width, -row * 96f / Screen.width, 0.05f),
 		                              Quaternion.identity) as GameObject;
@@ -25,12 +26,28 @@ public class Game : MonoBehaviour {
 		tile.SetActive(true);
 		tile.renderer.enabled = true;
 		tile.collider2D.enabled = true;
-
-		Tile tileBehaviour = tile.GetComponent<Tile>();
-
-		//tileBehaviour.addNeighbourTile(m_tiles[col - 1, row - 1]);
-
+				                 
 		m_tiles[col, row] = tile;
+	}
+
+	void setupNeighbourTiles() {
+		for (int row = 0; row < ROWS; row++) {
+			for (int col = 0; col < COLS; col++) {
+				Tile tileBehaviour = m_tiles[col, row].GetComponent<Tile>();
+
+				// top and bottom neighbours
+				if (row > 0) 
+					tileBehaviour.addNeighbourTile(m_tiles[col, row - 1]);
+				if (row < (ROWS - 1))
+					tileBehaviour.addNeighbourTile(m_tiles[col, row + 1]);
+
+				// left and right neighbours
+				if (col < (COLS - 1))
+					tileBehaviour.addNeighbourTile(m_tiles[col + 1, row]);
+				if (col > 0) 
+					tileBehaviour.addNeighbourTile(m_tiles[col - 1, row]);
+			}
+		}
 	}
 
 
@@ -42,6 +59,8 @@ public class Game : MonoBehaviour {
 				createTile(row, col);
 			}
 		}
+		setupNeighbourTiles();
+		m_tiles[0, 0].GetComponent<Tile>().uncovered = true;
 	}
 
 	// Use this for initialization
