@@ -18,6 +18,8 @@ public class Game : MonoBehaviour {
 				m_tiles[col, row] = Instantiate(tileTemplate, new Vector3(col * 96f / Screen.width, -row * 96f / Screen.width, 0.05f), Quaternion.identity) as GameObject;
 				m_tiles[col, row].transform.localScale = new Vector3(96f / Screen.width, 96f / Screen.width);
 				m_tiles[col, row].SetActive(true);
+				m_tiles[col, row].renderer.enabled = true;
+				m_tiles[col, row].collider2D.enabled = true;
 			}
 		}
 	}
