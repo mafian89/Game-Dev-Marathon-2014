@@ -13,8 +13,16 @@ public class Game : MonoBehaviour {
 	private const int ROWS = 7;
 	private const int COLS = 5;
 
+
+
+	private MonoBehaviour m_currentScene;
+
 	void Awake() {
 		Instance = this;
+		DontDestroyOnLoad(this);
+		Screen.SetResolution(480, 800, false);
+		mainCamera.rect = new Rect(0, 0, 1, 1);
+		generateTiles();
 	}	
 
 	void createTile(int row, int col) {
@@ -28,6 +36,7 @@ public class Game : MonoBehaviour {
 		tile.collider2D.enabled = true;
 				                 
 		m_tiles[col, row] = tile;
+		DontDestroyOnLoad(tile);
 	}
 
 	void setupNeighbourTiles() {
@@ -65,13 +74,25 @@ public class Game : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Screen.SetResolution(480, 800, false);
-		mainCamera.rect = new Rect(0, 0, 1, 1);
-		generateTiles();
+
 	}
+
+	private bool m_shouldResume;
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (m_shouldResume) {
+			Destroy(m_currentScene);
+			m_shouldResume = false;
+		}
+	}
+
+	public void resumeGame() {
+		m_shouldResume = true;
+	}
+
+	public void changeScene(string sceneName) {
+		Application.LoadLevelAdditive(sceneName);
+		m_currentScene = gameObject.GetComponent(sceneName) as MonoBehaviour;
 	}
 }

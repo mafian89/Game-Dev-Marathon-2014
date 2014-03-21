@@ -76,4 +76,8 @@ public class gameScript : MonoBehaviour {
 		return true;
 	}
 
+	public void unloadScene ()
+	{
+		Destroy (this);
+	}
 }

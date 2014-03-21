@@ -76,7 +76,11 @@ public class YellowStoneBehaviourScript : MonoBehaviour {
 				}else{ // you cant move
 					print("Cant move!");
 				}
-			} 
+			}
+
+			if (gameScript.Instance.minigame4SuccesfullyFinished() || gameScript.Instance.minigame4Lost()) {
+				gameScript.Instance.unloadScene();
+			}
 		}
 	}
 }

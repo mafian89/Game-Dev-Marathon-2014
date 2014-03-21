@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Tile : MonoBehaviour {
-	
+
 	private List<GameObject> neighbourTiles;
 
 	private bool m_uncovered = false;
@@ -31,7 +31,11 @@ public class Tile : MonoBehaviour {
 
 	void OnMouseDown() {
 		if (Input.GetKey("mouse 0")) {
-			if (!m_canUncover) return;
+			if (!m_canUncover) {
+				Application.LoadLevel("minigame4");
+				return;
+			}
+
 
 			Sprite s;
 			if (!uncovered) {
