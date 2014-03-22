@@ -20,8 +20,15 @@ public class Tile : MonoBehaviour {
 		Sprite s = Resources.Load<Sprite>("Sprites/covered");
 
 		if (_state.isUncovered) {
-			if (_state.type == TileType.TileTypeCubicle) s = Resources.Load<Sprite>("Sprites/cubicle1");
-			else s = Resources.Load<Sprite>("Sprites/hallway1");
+			if (_state.type == TileType.CubicleGreen) {
+				s = Resources.Load<Sprite>("Sprites/green_cubicle_tile");
+			} else if (_state.type == TileType.CubicleWhite) { 
+				s = Resources.Load<Sprite>("Sprites/white_cubicle_tile");
+			} else if (_state.type == TileType.Hallway) { 
+				s = Resources.Load<Sprite>("Sprites/hallway");
+			} else if (_state.type == TileType.CubicleYellow) {
+				s = Resources.Load<Sprite>("Sprites/yellow_cubicle_tile");
+			}
 		} else if (_state.isBlocked) {
 			s = Resources.Load<Sprite>("Sprites/blocked");
 		} else if (_state.canUncover) {

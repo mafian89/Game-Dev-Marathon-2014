@@ -5,19 +5,28 @@ using System.Collections.Generic;
 public class HudManager : MonoBehaviour {
 
 	private List<GameObject> _hearts = new List<GameObject>();
+	private Sprite _emptyHeart;
+	private Sprite _filledHeart;
 
 	public GameObject heart1;
 	public GameObject heart2;
 	public GameObject heart3;
 
 	void Awake() {
+		_emptyHeart = Resources.Load<Sprite>("Sprites/hearth_empty");
+		_filledHeart = Resources.Load<Sprite>("Sprites/hearth_filled");
+
 		_hearts.Add(heart1);
 		_hearts.Add(heart2);
 		_hearts.Add(heart3);
 
-		for (int i = 0; i < Game.Instance.GetLives(); i++) {
-			GameObject heart = _hearts[i];
-			(heart.GetComponent("SpriteRenderer") as SpriteRenderer).enabled = true;
+		int lives = Game.Instance.GetLives();
+		for (int i = 0; i < 3; i++) {
+			Sprite s =  _filledHeart;
+			if (i > lives - 1) {
+				s =  _emptyHeart;
+			}
+			(_hearts[i].GetComponent("SpriteRenderer") as SpriteRenderer).sprite = s;
 		}
 	}
 

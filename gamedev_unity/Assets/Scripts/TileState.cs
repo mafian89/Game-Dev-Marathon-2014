@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum TileType { TileTypeCubicle, TileTypeHallway };
+public enum TileType { CubicleWhite, Hallway, CubicleGreen, CubicleYellow };
 
 public class TileState
 {
@@ -31,18 +31,21 @@ public class TileState
 		this._neighbourTileStates = new List<TileState>();
 		this.row = row;
 		this.col = column;
+
 		float rand = Random.value;
 		if (rand < 0.6f) {
 			this.game = 0;
+			this.type = TileType.Hallway;
 		} else if (rand < 0.65f) {
 			this.game = 1;
+			this.type = TileType.CubicleGreen;
 		} else if (rand < 0.825f) {
 			this.game = 3;
+			this.type = TileType.CubicleWhite;
 		} else {
 			this.game = 4;
+			this.type = TileType.CubicleYellow;
 		}
-
-		this.type = this.game > 0 ? TileType.TileTypeCubicle : TileType.TileTypeHallway;
 	}
 
 	public void addNeighbourState(TileState neighbourState) {
@@ -58,7 +61,7 @@ public class TileState
 			if (this._uncovered) {
 				foreach (var tileState in _neighbourTileStates) {
 					tileState.canUncover = true;
-					if (type == TileType.TileTypeCubicle) {
+					if (type == TileType.CubicleWhite || type == TileType.CubicleGreen || type == TileType.CubicleYellow) {
 						tileState.increaseBlockCount();
 					}
 				}
