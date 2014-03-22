@@ -36,8 +36,7 @@ public class YellowStoneBehaviourScript : MonoBehaviour {
 	void OnMouseDown() {
 		if (Input.GetKey("mouse 0")) {			
 			//print("myslot" + mySlot.ToString()); 
-			print("Game win = " + gameScript.Instance.minigame4SuccesfullyFinished());
-			print("Game lost = " + gameScript.Instance.minigame4Lost());
+
 
 			if(stoneId<=3){// yellow stone
 				if(mySlot<=5 &&  gameScript.Instance.minigame4slotFree(mySlot+1)){// move one down
@@ -77,6 +76,8 @@ public class YellowStoneBehaviourScript : MonoBehaviour {
 					print("Cant move!");
 				}
 			} 
+			print("Game win = " + gameScript.Instance.minigame4SuccesfullyFinished());
+			print("Game lost = " + gameScript.Instance.minigame4Lost());
 		}
 	}
 }
