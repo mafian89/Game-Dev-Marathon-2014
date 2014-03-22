@@ -19,7 +19,7 @@ public class MainGame : MonoBehaviour {
 
 			Tile tile = go.GetComponent<Tile>();
 			tile.state = state;
-			tile.gameObject.transform.localScale = new Vector3(96f / Screen.width, 96f / Screen.width);
+			tile.gameObject.transform.localScale = new Vector3(0.25f, 0.25f);
 			tile.gameObject.SetActive(true);
 			tile.gameObject.renderer.enabled = true;
 			tile.gameObject.collider2D.enabled = true;

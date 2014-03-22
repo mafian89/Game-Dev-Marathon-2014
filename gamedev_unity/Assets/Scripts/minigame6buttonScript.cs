@@ -145,6 +145,8 @@ public class minigame6buttonScript : MonoBehaviour {
 
 			if (!didWin) {
 				Game.Instance.descreaseLife();
+			} else {
+				Game.Instance.increaseBeers();
 			}
 			Game.Instance.ResumeMainGame();
 		}

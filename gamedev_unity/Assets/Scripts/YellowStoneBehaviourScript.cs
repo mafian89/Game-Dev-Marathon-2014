@@ -68,6 +68,7 @@ public class YellowStoneBehaviourScript : MonoBehaviour {
 			}
 
 			if (CoinMinigame.Instance.minigame4SuccesfullyFinished()) {
+				Game.Instance.increaseBills();
 				Game.Instance.ResumeMainGame();
 			} else if (CoinMinigame.Instance.minigame4Lost()) {
 				Game.Instance.descreaseLife();

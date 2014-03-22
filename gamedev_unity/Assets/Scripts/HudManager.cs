@@ -43,8 +43,8 @@ public class HudManager : MonoBehaviour {
 	void OnGUI() {
 		var style = new GUIStyle();
 		style.fontSize = 30;
-		GUI.Label(new Rect(78, 600, 0, 0), "0x", style);
-		GUI.Label(new Rect(155, 600, 0, 0), "0x", style);
-		GUI.Label(new Rect(225, 600, 0, 0), "0x", style);
+		GUI.Label(new Rect(78, 600, 0, 0), Game.Instance.beerCount + "x", style);
+		GUI.Label(new Rect(155, 600, 0, 0), Game.Instance.billCount + "x", style);
+		GUI.Label(new Rect(225, 600, 0, 0), Game.Instance.kegCount + "x", style);
 	}
 }

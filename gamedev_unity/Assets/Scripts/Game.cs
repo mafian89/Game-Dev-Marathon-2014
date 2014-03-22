@@ -11,6 +11,7 @@ public class Game : MonoBehaviour {
 
 	private int _bills = 0;
 	private int _kegs = 0;
+	private int _beers = 0;
 	private int _lives = 3;
 
 	public List<TileState> TileStates {
@@ -138,8 +139,26 @@ public class Game : MonoBehaviour {
 				_lives = 3;
 				_kegs = 0;
 				_bills = 0;
+				_beers = 0;
 				initGame();
 			}
 		}
+	}
+
+	public int kegCount {
+		get { return this._kegs; }
+	}
+
+	public void increaseBeers ()
+	{
+		this._beers++;
+	}
+
+	public int beerCount {
+		get { return this._beers; }
+	}
+
+	public int billCount {
+		get { return this._bills; }
 	}
 }

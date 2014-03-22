@@ -54,6 +54,7 @@ public class tictactoeTile : MonoBehaviour {
 			}
 
 			if(minigame5game.Instance.isPlayerWinner()){
+				Game.Instance.increaseKegs();
 				Game.Instance.ResumeMainGame();
 			}
 			if(minigame5game.Instance.tilesFull() && !minigame5game.Instance.isPlayerWinner()){
