@@ -1,98 +1,83 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class Game : MonoBehaviour {
 	public static Game Instance = null;
 
-	public GameObject tileTemplate;
-	public Camera mainCamera;
+	private List<TileState> _tileStates;
 
-	private GameObject[,] m_tiles;
+	public List<TileState> TileStates {
+		get {
+			return this._tileStates;
+		}
+		set {
+			this._tileStates = value;
+		}
+	}
 
 	private const int ROWS = 7;
 	private const int COLS = 5;
 
-
-
-	private MonoBehaviour m_currentScene;
-
 	void Awake() {
-		Instance = this;
-		DontDestroyOnLoad(this);
-		Screen.SetResolution(480, 800, false);
-		mainCamera.rect = new Rect(0, 0, 1, 1);
-		generateTiles();
+		if (!Instance) {
+			Instance = this;
+			initGame();
+			DontDestroyOnLoad(this);
+		}
 	}	
 
-	void createTile(int row, int col) {
-		GameObject tile = Instantiate(tileTemplate,
-		                              new Vector3(col * 96f / Screen.width, -row * 96f / Screen.width, 0.05f),
-		                              Quaternion.identity) as GameObject;
-
-		tile.transform.localScale = new Vector3(96f / Screen.width, 96f / Screen.width);
-		tile.SetActive(true);
-		tile.renderer.enabled = true;
-		tile.collider2D.enabled = true;
-				                 
-		m_tiles[col, row] = tile;
-		DontDestroyOnLoad(tile);
+	void initGame ()
+	{
+		Screen.SetResolution(480, 800, false);
+		createTileStates();
+		ResumeMainGame();
 	}
 
-	void setupNeighbourTiles() {
+	void createTileStates() {
+		_tileStates = new List<TileState>();
+
 		for (int row = 0; row < ROWS; row++) {
 			for (int col = 0; col < COLS; col++) {
-				Tile tileBehaviour = m_tiles[col, row].GetComponent<Tile>();
+				_tileStates.Add(new TileState(row, col));
+			}
+		}
 
+		for (int row = 0; row < ROWS; row++) {
+			for (int col = 0; col < COLS; col++) {
+				TileState tileState = _tileStates.Find(s => s.row == row && s.col == col);
 				// top and bottom neighbours
-				if (row > 0) 
-					tileBehaviour.addNeighbourTile(m_tiles[col, row - 1]);
-				if (row < (ROWS - 1))
-					tileBehaviour.addNeighbourTile(m_tiles[col, row + 1]);
+				if (row > 0) tileState.addNeighbourState(_tileStates.Find(s => s.col == col && s.row == (row - 1)));
+				if (row < (ROWS - 1)) tileState.addNeighbourState(_tileStates.Find(s => s.col == col && s.row == (row + 1)));
 
 				// left and right neighbours
-				if (col < (COLS - 1))
-					tileBehaviour.addNeighbourTile(m_tiles[col + 1, row]);
-				if (col > 0) 
-					tileBehaviour.addNeighbourTile(m_tiles[col - 1, row]);
+				if (col < (COLS - 1)) tileState.addNeighbourState(_tileStates.Find(s => s.col == (col + 1) && s.row == row));
+				if (col > 0) tileState.addNeighbourState(_tileStates.Find(s => s.col == (col - 1) && s.row == row));
 			}
 		}
-	}
 
-
-
-	void generateTiles() {
-		m_tiles = new GameObject[COLS, ROWS];
-		for (int col = 0; col < COLS; col++) {
-			for (int row = 0; row < ROWS; row++) {
-				createTile(row, col);
-			}
-		}
-		setupNeighbourTiles();
-		m_tiles[0, 0].GetComponent<Tile>().uncovered = true;
+		// uncover top left tile
+		_tileStates.Find(s => (s.row == 0 && s.col == 0)).isUncovered = true;
 	}
 
 	// Use this for initialization
 	void Start () {
 
 	}
-
-	private bool m_shouldResume;
 	
 	// Update is called once per frame
 	void Update () {
-		if (m_shouldResume) {
-			Destroy(m_currentScene);
-			m_shouldResume = false;
-		}
+
+	}
+	
+	public void StartMinigame(int i)
+	{
+		Application.LoadLevel(i);
 	}
 
-	public void resumeGame() {
-		m_shouldResume = true;
-	}
-
-	public void changeScene(string sceneName) {
-		Application.LoadLevelAdditive(sceneName);
-		m_currentScene = gameObject.GetComponent(sceneName) as MonoBehaviour;
+	public void ResumeMainGame() {
+		Application.LoadLevel("MainGame");
 	}
 }

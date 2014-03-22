@@ -79,7 +79,7 @@ public class YellowStoneBehaviourScript : MonoBehaviour {
 			}
 
 			if (gameScript.Instance.minigame4SuccesfullyFinished() || gameScript.Instance.minigame4Lost()) {
-				gameScript.Instance.unloadScene();
+				Game.Instance.ResumeMainGame();
 			}
 		}
 	}

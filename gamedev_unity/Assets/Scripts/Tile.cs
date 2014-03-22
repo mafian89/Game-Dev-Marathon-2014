@@ -4,13 +4,9 @@ using System.Collections.Generic;
 
 public class Tile : MonoBehaviour {
 
-	private List<GameObject> neighbourTiles;
-
-	private bool m_uncovered = false;
-	private bool m_canUncover = false;
-
+	private TileState _state = null;
+	
 	void Awake() {
-		neighbourTiles = new List<GameObject>();
 	}
 
 	// Use this for initialization
@@ -20,10 +16,12 @@ public class Tile : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (_state == null) return;
+
 		Color c = Color.blue;
-		if (m_uncovered) {
+		if (_state.isUncovered) {
 			c = Color.red;
-		} else if (m_canUncover) {
+		} else if (_state.canUncover) {
 			c = Color.green;
 		}
 		(gameObject.renderer as SpriteRenderer).color = c;
@@ -31,43 +29,21 @@ public class Tile : MonoBehaviour {
 
 	void OnMouseDown() {
 		if (Input.GetKey("mouse 0")) {
-			if (!m_canUncover) {
-				Application.LoadLevel("minigame4");
-				return;
+			if (!_state.isUncovered) {
+				_state.isUncovered = true;
+				if (_state.game != 0) {
+					Game.Instance.StartMinigame(_state.game);
+				}
 			}
-
-
-			Sprite s;
-			if (!uncovered) {
-			    s = Resources.Load<Sprite>("Sprites/pivo");
-				uncovered = true;
-			}
-			//renderer.sprite = s;
 		}
 	}
-	
-	public bool canUncover {
-		set {
-			this.m_canUncover = value;
-		}
 
+	public TileState state {
+		set {
+			this._state = value;
+		}
 		get {
-			return this.m_canUncover;
+			return this._state;
 		}
-	}
-
-	public bool uncovered {
-		set {
-			this.m_uncovered = value;
-			foreach(var tile in neighbourTiles) {
-				tile.GetComponent<Tile>().canUncover = true;
-			}
-		}
-
-		get { return m_uncovered; }
-	}
-
-	public void addNeighbourTile(GameObject tile) {
-		neighbourTiles.Add(tile);
 	}
 }
