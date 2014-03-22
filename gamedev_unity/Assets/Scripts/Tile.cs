@@ -22,6 +22,8 @@ public class Tile : MonoBehaviour {
 		if (_state.isUncovered) {
 			if (_state.type == TileType.TileTypeCubicle) s = Resources.Load<Sprite>("Sprites/cubicle1");
 			else s = Resources.Load<Sprite>("Sprites/hallway1");
+		} else if (_state.isBlocked) {
+			s = Resources.Load<Sprite>("Sprites/blocked");
 		} else if (_state.canUncover) {
 			s = Resources.Load<Sprite>("Sprites/uncoverable");
 		}
@@ -30,10 +32,13 @@ public class Tile : MonoBehaviour {
 
 	void OnMouseDown() {
 		if (Input.GetKey("mouse 0")) {
-			if (!_state.isUncovered && _state.canUncover) {
+			if (!_state.isUncovered && _state.canUncover && !_state.isBlocked) {
 				_state.isUncovered = true;
+			} else if (_state.isUncovered && !_state.hasPlayed) {
 				if (_state.game != 0) {
 					Game.Instance.StartMinigame(_state.game);
+					_state.hasPlayed = true;
+					_state.unblockNeighbours();
 				}
 			}
 		}

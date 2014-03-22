@@ -12,21 +12,31 @@ public class TileState
 	public readonly int game;
 	public readonly TileType type;
 
+	public bool hasPlayed {
+		get { return this._hasPlayed; }
+		set { this._hasPlayed = value; }
+	}
+
 	private bool _uncovered;
 	private bool _canUncover;
+	private bool _isBlocked;
+	private bool _hasPlayed;
+
 
 	private List<TileState> _neighbourTileStates;
+
+	private int _blockCount = 0;
 
 	public TileState(int row, int column) {
 		this._neighbourTileStates = new List<TileState>();
 		this.row = row;
 		this.col = column;
 		float rand = Random.value;
-		if (rand < 0.8f) {
+		if (rand < 0.6f) {
 			this.game = 0;
-		} else if (rand < 0.85f) {
+		} else if (rand < 0.65f) {
 			this.game = 1;
-		} else if (rand < 0.925f) {
+		} else if (rand < 0.825f) {
 			this.game = 3;
 		} else {
 			this.game = 4;
@@ -48,6 +58,9 @@ public class TileState
 			if (this._uncovered) {
 				foreach (var tileState in _neighbourTileStates) {
 					tileState.canUncover = true;
+					if (type == TileType.TileTypeCubicle) {
+						tileState.increaseBlockCount();
+					}
 				}
 			}
 		}
@@ -56,6 +69,28 @@ public class TileState
 	public bool canUncover {
 		get { return this._canUncover; }
 		set { this._canUncover = value; }
+	}
+
+	public bool isBlocked {
+		get { return _blockCount > 0; }
+	}
+
+	public void unblockNeighbours ()
+	{
+		foreach(var neighbour in _neighbourTileStates) {
+			neighbour.descreaseBlockCount();
+		}
+	}
+
+	public void descreaseBlockCount ()
+	{
+		if (_blockCount > 0) 
+			_blockCount--;
+	}
+
+	public void increaseBlockCount()
+	{
+		_blockCount++;
 	}
 }
 
