@@ -25,7 +25,7 @@ public class minigame5game : MonoBehaviour {
 			randX=rnd.Next(0, 3);
 			randY=rnd.Next(0, 3);
 			randSymbol=rnd.Next(1, 3);
-			this.addNewSymbol(randX,randY,randSymbol);
+			if(symbol(randX,randY)==0) this.addNewSymbol(randX,randY,randSymbol);
 		}
 	}
 

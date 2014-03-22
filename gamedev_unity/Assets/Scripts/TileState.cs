@@ -17,10 +17,23 @@ public class TileState
 		this._neighbourTileStates = new List<TileState>();
 		this.row = row;
 		this.col = column;
-		if (Random.Range(0, 10) > 7) {
-			this.game = 1;
-		} else {
+		int rand = Random.Range(0, 3);
+		switch (rand) {
+		case 0:
 			this.game = 0;
+			break;
+		
+		case 1:
+			this.game = 1;
+			break;
+
+		case 2:
+			this.game = 3;
+			break;
+
+		case 3:
+			this.game = 4;
+			break;
 		}
 	}
 

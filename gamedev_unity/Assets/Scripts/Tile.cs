@@ -18,7 +18,6 @@ public class Tile : MonoBehaviour {
 		if (_state == null) return;
 
 		Color c = Color.white;
-		//(gameObject.renderer as SpriteRenderer).sprite = Resources.Load("UncoveredTile1Prefab") as Sprite;
 		if (_state.isUncovered) {
 			c = Color.red;
 		} else if (_state.canUncover) {

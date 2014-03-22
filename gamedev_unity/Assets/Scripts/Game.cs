@@ -83,7 +83,6 @@ public class Game : MonoBehaviour {
 
 	public void ResumeMainGame() {
 		Application.LoadLevel("MainGame");
-		//Application.LoadLevelAdditive("CoinMinigame");
 	}
 
 	public int increaseBills() {

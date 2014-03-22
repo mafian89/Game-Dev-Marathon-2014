@@ -52,11 +52,13 @@ public class tictactoeTile : MonoBehaviour {
 			}else{
 				minigame5game.Instance.addNewSymbol(yPos-1,xPos-1,2);
 			}
+
 			if(minigame5game.Instance.isPlayerWinner()){
-				print("Player wins!");
+				Game.Instance.ResumeMainGame();
 			}
 			if(minigame5game.Instance.tilesFull() && !minigame5game.Instance.isPlayerWinner()){
-				print("Player losts!");
+				Game.Instance.descreaseLife();
+				Game.Instance.ResumeMainGame();
 			}
 		}
 	}
