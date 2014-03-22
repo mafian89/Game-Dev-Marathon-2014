@@ -7,14 +7,14 @@ public class MainGame : MonoBehaviour {
 	private GameObject _tileTemplate;
 
 	void Awake() {
-		_tileTemplate = Resources.Load<GameObject>("BeerTilePrefab");
+		_tileTemplate = Resources.Load<GameObject>("UncoveredTile1Prefab");
 		awakeFromTileStates(Game.Instance.TileStates);
 	}
 
 	void awakeFromTileStates(List<TileState> tileStates) {
 		foreach(var state in tileStates) {
 			GameObject go = Instantiate(_tileTemplate,
-			                              new Vector3(state.col * 96f / Screen.width, -state.row * 96f / Screen.width, 0.05f),
+			                            new Vector3(state.col * 0.24f, -state.row * 0.24f, 0.05f), //new Vector3(state.col * 96f / Screen.width, -state.row * 96f / Screen.width, 0.05f),
 			                              Quaternion.identity) as GameObject;
 
 			Tile tile = go.GetComponent<Tile>();

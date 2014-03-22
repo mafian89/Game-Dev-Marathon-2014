@@ -6,8 +6,12 @@ using System.Linq;
 
 public class Game : MonoBehaviour {
 	public static Game Instance = null;
-
+	
 	private List<TileState> _tileStates;
+
+	private int _bills = 0;
+	private int _kegs = 0;
+	private int _lives = 3;
 
 	public List<TileState> TileStates {
 		get {
@@ -79,5 +83,58 @@ public class Game : MonoBehaviour {
 
 	public void ResumeMainGame() {
 		Application.LoadLevel("MainGame");
+		//Application.LoadLevelAdditive("CoinMinigame");
+	}
+
+	public int increaseBills() {
+		_bills++;
+		return _bills;
+	}
+
+	public int descreseBills() {
+		if (_bills > 0) {
+			_bills--;
+		}
+		return _bills;
+	}
+
+	public int increaseKegs() {
+		_kegs++;
+		return _kegs;
+	}
+	
+	public int descreseKegs() {
+		if (_kegs > 0) {
+			_kegs--;
+		}
+		return _kegs;
+	}
+	
+	public int descreaseLife() {
+		if (_lives > 1) {
+			_lives--;
+			return _lives;
+		}
+		GameOver();
+		return _lives;
+	}
+
+	bool _isGameOver = false;
+
+	void GameOver ()
+	{
+		_isGameOver = true;
+	}
+
+	void OnGUI() {
+		if (_isGameOver) {
+			if (GUI.Button (new Rect(10, 10, 150, 100), "New Game")) {
+				_isGameOver = false;
+				_lives = 3;
+				_kegs = 0;
+				_bills = 0;
+				initGame();
+			}
+		}
 	}
 }
