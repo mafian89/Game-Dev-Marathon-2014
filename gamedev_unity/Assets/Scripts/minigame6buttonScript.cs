@@ -119,39 +119,34 @@ public class minigame6buttonScript : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
+		bool didWin = false;
 		if (Input.GetKey ("mouse 0")) {	
 			if (this.name == "38") {
 				if(minigame6game.Instance.getVariant() == 5){
-					print ("Winner!");
-					return;
+					didWin = true;
 				}
-			}
-			if (this.name == "21") {
+			} else if (this.name == "21") {
 				if(minigame6game.Instance.getVariant() == 1){
-					print ("Winner!");
-					return;
+					didWin = true;
 				}
-			}
-			if (this.name == "19") {
+			} else if (this.name == "19") {
 				if(minigame6game.Instance.getVariant() == 4 || minigame6game.Instance.getVariant() == 2){
-					print ("Winner!");
-					return;
+					didWin = true;
 				}
-			}
-			if (this.name == "5040") {
+			} else if (this.name == "5040") {
 				if(minigame6game.Instance.getVariant() == 3){
-					print ("Winner!");
-					return;
+					didWin = true;
 				}
-			}
-			if (this.name == "64") {
+			} else if (this.name == "64") {
 				if(minigame6game.Instance.getVariant() == 0){
-					print ("Winner!"); 
-					return;
+					didWin = true;
 				}
 			}
-			print ("Loser!");
 
+			if (!didWin) {
+				Game.Instance.descreaseLife();
+			}
+			Game.Instance.ResumeMainGame();
 		}
 	}
 }

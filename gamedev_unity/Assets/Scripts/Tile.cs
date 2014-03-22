@@ -17,13 +17,15 @@ public class Tile : MonoBehaviour {
 	void Update () {
 		if (_state == null) return;
 
-		Color c = Color.white;
+		Sprite s = Resources.Load<Sprite>("Sprites/covered");
+
 		if (_state.isUncovered) {
-			c = Color.red;
+			if (_state.type == TileType.TileTypeCubicle) s = Resources.Load<Sprite>("Sprites/cubicle1");
+			else s = Resources.Load<Sprite>("Sprites/hallway1");
 		} else if (_state.canUncover) {
-			c = Color.green;
+			s = Resources.Load<Sprite>("Sprites/uncoverable");
 		}
-		(gameObject.renderer as SpriteRenderer).color = c;
+		(gameObject.renderer as SpriteRenderer).sprite = s;
 	}
 
 	void OnMouseDown() {

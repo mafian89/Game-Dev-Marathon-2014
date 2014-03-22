@@ -7,7 +7,7 @@ public class MainGame : MonoBehaviour {
 	private GameObject _tileTemplate;
 
 	void Awake() {
-		_tileTemplate = Resources.Load<GameObject>("UncoveredTile1Prefab");
+		_tileTemplate = Resources.Load<GameObject>("TilePrefab");
 		awakeFromTileStates(Game.Instance.TileStates);
 	}
 
