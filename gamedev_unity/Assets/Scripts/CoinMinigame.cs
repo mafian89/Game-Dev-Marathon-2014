@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class gameScript : MonoBehaviour {
+public class CoinMinigame : MonoBehaviour {
 
-	public static gameScript Instance = null;
+	public static CoinMinigame Instance = null;
 
 	private int[] minigame4slots;
 	// Use this for initialization

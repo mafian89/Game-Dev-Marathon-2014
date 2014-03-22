@@ -36,7 +36,7 @@ public class minigame6game : MonoBehaviour {
 		}
 		if (getVariant() == 5) {
 			GUI.Label(new Rect(20,20,Screen.width-20,Screen.height-20),
-			           "<size=33>3, 10, 17, 24, 31, 38, ?? </size>");
+			           "<size=33>3, 10, 17, 24, 31, ?? </size>");
 		}
 
 		//GUI.Label(new Rect(20,20,Screen.width-20,Screen.height-20),"<size=33>0, 1, 1, 2, 3, 5, 8, 13, ?? </size>");

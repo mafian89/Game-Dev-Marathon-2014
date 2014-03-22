@@ -36,40 +36,40 @@ public class YellowStoneBehaviourScript : MonoBehaviour {
 	void OnMouseDown() {
 		if (Input.GetKey("mouse 0")) {	
 			if(stoneId<=3){// yellow stone
-				if(mySlot<=5 &&  gameScript.Instance.minigame4slotFree(mySlot+1)){// move one down
+				if(mySlot<=5 &&  CoinMinigame.Instance.minigame4slotFree(mySlot+1)){// move one down
 					var position = this.gameObject.transform.position;
 					position.Set(position.x,position.y-1.42f,position.z);
 					this.gameObject.transform.position = position;
-					gameScript.Instance.setMinigame4slotFree(mySlot,0);
-					gameScript.Instance.setMinigame4slotFree(mySlot+1,stoneId);mySlot=mySlot+1;
-				}else if(mySlot<=4 &&   gameScript.Instance.minigame4slotFree(mySlot+2)){// move two down
+					CoinMinigame.Instance.setMinigame4slotFree(mySlot,0);
+					CoinMinigame.Instance.setMinigame4slotFree(mySlot+1,stoneId);mySlot=mySlot+1;
+				}else if(mySlot<=4 &&   CoinMinigame.Instance.minigame4slotFree(mySlot+2)){// move two down
 					var position = this.gameObject.transform.position;
 					position.Set(position.x,position.y-2f*1.42f,position.z);
 					this.gameObject.transform.position = position;
-					gameScript.Instance.setMinigame4slotFree(mySlot,0);
-					gameScript.Instance.setMinigame4slotFree(mySlot+2,stoneId);mySlot=mySlot+2;
+					CoinMinigame.Instance.setMinigame4slotFree(mySlot,0);
+					CoinMinigame.Instance.setMinigame4slotFree(mySlot+2,stoneId);mySlot=mySlot+2;
 				}
 			}else{// green stone
-				if(mySlot>=1 && gameScript.Instance.minigame4slotFree(mySlot-1)){// move one up
+				if(mySlot>=1 && CoinMinigame.Instance.minigame4slotFree(mySlot-1)){// move one up
 					//print("Move one up!");
 					var position = this.gameObject.transform.position;
 					position.Set(position.x,position.y+1.42f,position.z);
 					this.gameObject.transform.position = position;
-					gameScript.Instance.setMinigame4slotFree(mySlot,0);
-					gameScript.Instance.setMinigame4slotFree(mySlot-1,stoneId);mySlot=mySlot-1;
-				}else if(mySlot>=2 && gameScript.Instance.minigame4slotFree(mySlot-2)){// move two up
+					CoinMinigame.Instance.setMinigame4slotFree(mySlot,0);
+					CoinMinigame.Instance.setMinigame4slotFree(mySlot-1,stoneId);mySlot=mySlot-1;
+				}else if(mySlot>=2 && CoinMinigame.Instance.minigame4slotFree(mySlot-2)){// move two up
 					//print("Move two up!");
 					var position = this.gameObject.transform.position;
 					position.Set(position.x,position.y+2f*1.42f,position.z);
 					this.gameObject.transform.position = position;
-					gameScript.Instance.setMinigame4slotFree(mySlot,0);
-					gameScript.Instance.setMinigame4slotFree(mySlot-2,stoneId);mySlot=mySlot-2;
+					CoinMinigame.Instance.setMinigame4slotFree(mySlot,0);
+					CoinMinigame.Instance.setMinigame4slotFree(mySlot-2,stoneId);mySlot=mySlot-2;
 				}
 			}
 
-			if (gameScript.Instance.minigame4SuccesfullyFinished()) {
+			if (CoinMinigame.Instance.minigame4SuccesfullyFinished()) {
 				Game.Instance.ResumeMainGame();
-			} else if (gameScript.Instance.minigame4Lost()) {
+			} else if (CoinMinigame.Instance.minigame4Lost()) {
 				Game.Instance.descreaseLife();
 				Game.Instance.ResumeMainGame();
 			}
