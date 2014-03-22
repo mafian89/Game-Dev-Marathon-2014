@@ -15,3 +15,5 @@ EditorBuildSettings:
     path: Assets/TicTacToeMinigame.unity
   - enabled: 1
     path: Assets/NumberSequenceMinigame.unity
+  - enabled: 1
+    path: Assets/HUD.unity

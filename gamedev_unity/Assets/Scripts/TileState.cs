@@ -21,25 +21,15 @@ public class TileState
 		this._neighbourTileStates = new List<TileState>();
 		this.row = row;
 		this.col = column;
-		int rand = Random.Range(0, 6);
-		switch (rand) {
-			case 0:
-			case 1:
-			case 2:
-				this.game = 0;
-				break;
-			
-			case 3:
-				this.game = 1;
-				break;
-
-			case 4:
-				this.game = 3;
-				break;
-
-			case 5:
-				this.game = 4;
-				break;
+		float rand = Random.value;
+		if (rand < 0.8f) {
+			this.game = 0;
+		} else if (rand < 0.85f) {
+			this.game = 1;
+		} else if (rand < 0.925f) {
+			this.game = 3;
+		} else {
+			this.game = 4;
 		}
 
 		this.type = this.game > 0 ? TileType.TileTypeCubicle : TileType.TileTypeHallway;

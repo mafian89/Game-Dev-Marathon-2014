@@ -83,6 +83,7 @@ public class Game : MonoBehaviour {
 
 	public void ResumeMainGame() {
 		Application.LoadLevel("MainGame");
+		Application.LoadLevelAdditive("HUD");
 	}
 
 	public int increaseBills() {
@@ -115,6 +116,11 @@ public class Game : MonoBehaviour {
 			return _lives;
 		}
 		GameOver();
+		return _lives;
+	}
+
+	public int GetLives ()
+	{
 		return _lives;
 	}
 
