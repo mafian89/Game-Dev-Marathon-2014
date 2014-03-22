@@ -8,6 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/StateScene.unity
   - enabled: 1
-    path: Assets/minigame4.unity
+    path: Assets/CoinMinigame.unity
   - enabled: 1
     path: Assets/MainGame.unity
