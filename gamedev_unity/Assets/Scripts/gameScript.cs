@@ -64,7 +64,7 @@ public class gameScript : MonoBehaviour {
 						}
 					}
 					if(wantedStone>3){// green
-						if(i>=15 && minigame4slots[i-1]==0){
+						if(i>=1 && minigame4slots[i-1]==0){
 							return false;
 						}else if(i>=2 && minigame4slots[i-2]==0){
 							return false;
